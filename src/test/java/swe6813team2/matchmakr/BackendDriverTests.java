@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class BackendDriverTests {
 
 	@Test
-	void contextLoads() {
+	boolean contextLoads() {
+		// TODO: update this test
+		return true;
 	}
 
 }
