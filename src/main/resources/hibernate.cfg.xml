@@ -19,7 +19,7 @@
         <property name = "hibernate.connection.username">doadmin</property>
  
         <!-- Set Password -->
-        <property name = "hibernate.connection.password">AVNS_FhJwM6dFyUiUZyo7GQu</property>
+        <property name = "hibernate.connection.password"></property>
  
  		<!-- org.hibernate.HibernateException: No CurrentSessionContext configured! -->
 		<property name="hibernate.current_session_context_class">thread</property>
