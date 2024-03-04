@@ -4,20 +4,30 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
- 
-        <!-- Set URL -->
-        <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/usersdb</property>
- 
+    
+ 		<!-- Set Driver Name -->
+        <property name = "hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+ 		
+ 		
+ 		<property name="hibernate.connection.useSSL">true</property>
+ 		<!-- Set URL -->
+        <property name = "hibernate.connection.url">
+        jdbc:mysql://doadmin:AVNS_FhJwM6dFyUiUZyo7GQu@db-mysql-swe6813-do-user-15899290-0.c.db.ondigitalocean.com:25060/webServiceEng?ssl-mode=REQUIRED
+        </property>
+        
         <!-- Set User Name -->
-        <property name = "hibernate.connection.username">root</property>
+        <property name = "hibernate.connection.username">doadmin</property>
  
         <!-- Set Password -->
-        <property name = "hibernate.connection.password">PASSWORD_GOES_HERE</property>
+        <property name = "hibernate.connection.password">AVNS_FhJwM6dFyUiUZyo7GQu</property>
  
-        <!-- Set Driver Name -->
-        <property name = "hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
- 
+ 		<!-- org.hibernate.HibernateException: No CurrentSessionContext configured! -->
+		<property name="hibernate.current_session_context_class">thread</property>
+		
         <property name = "hibernate.show_sql">true</property>
- 
+ 		
+ 		<!-- Mapping with model class containing annotations -->
+		<mapping class="hibernate.testing.User"/>
+		
     </session-factory>
 </hibernate-configuration>

@@ -20,9 +20,9 @@ public class App {
  
             User user = new User();
  
-            user.setFullname("Jimbo");
-            user.setEmail("joejones@email.com");
-            user.setPassword("password123");
+            user.setUsername("TEST");
+            user.setEmail("TEST@email.com");
+            user.setPassword("test123");
  
             session.beginTransaction();
  
@@ -31,6 +31,8 @@ public class App {
             session.persist(user);
  
             session.getTransaction().commit();
+            
+            session.close();
         }
 	}
 }
