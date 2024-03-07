@@ -9,6 +9,7 @@ public class App {
 		// Create Configuration
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
+        configuration.setProperty("hibernate.connection.password", System.getenv("db_password"));
         configuration.addAnnotatedClass(User.class);
  
         // Create Session Factory and auto-close with try-with-resources.
@@ -20,8 +21,8 @@ public class App {
  
             User user = new User();
  
-            user.setUsername("TEST");
-            user.setEmail("TEST@email.com");
+            user.setUsername("TEST2");
+            user.setEmail("TEST2@email.com");
             user.setPassword("test123");
  
             session.beginTransaction();

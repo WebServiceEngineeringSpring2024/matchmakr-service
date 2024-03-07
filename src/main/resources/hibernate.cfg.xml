@@ -12,7 +12,7 @@
  		<property name="hibernate.connection.useSSL">true</property>
  		<!-- Set URL -->
         <property name = "hibernate.connection.url">
-        jdbc:mysql://doadmin:AVNS_FhJwM6dFyUiUZyo7GQu@db-mysql-swe6813-do-user-15899290-0.c.db.ondigitalocean.com:25060/webServiceEng?ssl-mode=REQUIRED
+        jdbc:mysql://doadmin@db-mysql-swe6813-do-user-15899290-0.c.db.ondigitalocean.com:25060/webServiceEng?ssl-mode=REQUIRED
         </property>
         
         <!-- Set User Name -->
