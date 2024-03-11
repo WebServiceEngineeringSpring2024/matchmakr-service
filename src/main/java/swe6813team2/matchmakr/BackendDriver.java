@@ -1,5 +1,4 @@
 package swe6813team2.matchmakr;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
