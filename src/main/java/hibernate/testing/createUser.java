@@ -1,10 +1,12 @@
 package hibernate.testing;
 
+import java.sql.Timestamp;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class App {
+public class createUser {
 	public static void main(String[] args) {
 		// Create Configuration
         Configuration configuration = new Configuration();
@@ -20,15 +22,24 @@ public class App {
             Session session = sessionFactory.openSession();
  
             User user = new User();
- 
-            user.setUsername("TEST2");
-            user.setEmail("TEST2@email.com");
-            user.setPassword("test123");
- 
+            String test_num = "0003"; // used for testing. Update this on each new test to ensure username is unique.
+            
+            user.setUsername("test"+test_num);
+            user.setPassword("test_pass"+test_num);
+            user.setEmail("test"+test_num+"@email.com");
+            user.setPhoto("test"+test_num);
+            user.setOnline(false);
+            user.setLanguage("EN");
+            user.setCity("Atlanta");
+            user.setState("GA");
+            user.setCountry("US");
+            user.setPersonality(1234);
+            user.setCreated(new Timestamp(System.currentTimeMillis()));
+            user.setUpdated(new Timestamp(System.currentTimeMillis()));
+            
+            
             session.beginTransaction();
  
-            // Here we have used
-            // persist() method of JPA
             session.persist(user);
  
             session.getTransaction().commit();

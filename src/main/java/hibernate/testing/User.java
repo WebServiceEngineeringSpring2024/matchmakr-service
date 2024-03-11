@@ -17,10 +17,10 @@ public class User {
 	private String email;
 	private String photo;
 	private Boolean online;
-	private char language;
+	private String language;
 	private String city;
-	private char state;
-	private char country;
+	private String state;
+	private String country;
 	private Integer personality;
 	private Timestamp created;
 	private Timestamp updated;
@@ -59,6 +59,78 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+	
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
+	public Boolean getOnline() {
+		return online;
+	}
+	
+	public void setOnline(Boolean online) {
+		this.online = online;
+	}
+	
+	public String getLanguage() {
+		return language;
+	}
+	
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	public String getState() {
+		return state;
+	}
+	
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	public String getCountry() {
+		return country;
+	}
+	
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
+	public Integer getPersonality() {
+		return personality;
+	}
+	
+	public void setPersonality(Integer personality) {
+		this.personality = personality;
+	}
+	
+	public Timestamp getCreated() {
+		return created;
+	}
+	
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+	
+	public Timestamp getUpdated() {
+		return updated;
+	}
+	
+	public void setUpdated(Timestamp updated) {
+		this.updated = updated;
 	}
 		
 }
