@@ -18,16 +18,16 @@ public class Lobby {
     private int maxPlayers;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Date createdAt;
+    @Column(name = "created", nullable = false, updatable = false)
+    private Date created;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    @Column(name = "updated")
+    private Date updated;
 
 
     public Lobby() {
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
+        this.created = new Date();
+        this.updated = new Date();
     }
 }
