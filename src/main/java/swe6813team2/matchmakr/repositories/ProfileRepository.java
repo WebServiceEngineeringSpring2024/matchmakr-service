@@ -7,5 +7,4 @@ import swe6813team2.matchmakr.models.Profile;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-	
 }
