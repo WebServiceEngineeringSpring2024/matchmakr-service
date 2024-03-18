@@ -5,13 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import swe6813team2.matchmakr.models.User;
+import swe6813team2.matchmakr.models.UserCredentials;
 import swe6813team2.matchmakr.services.UserService;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://our front end url goes here")
+@CrossOrigin(origins = "*")
 @RequestMapping("/users")
 public class UserController {
 
@@ -32,7 +33,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/insert")
+    @PostMapping("/register")
     public ResponseEntity<User> insertUser(@RequestBody User newUser){
         try{
             User savedUser = userService.saveUser(newUser);
@@ -43,13 +44,38 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/name/{userName}")
+    public ResponseEntity<User> getUserByName(@PathVariable String userName){
+        try{
+            Optional<User> optionalUsername = userService.getUserByUsername(userName);
+            User user = optionalUsername.get();
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+    }
+    @PostMapping("/login")
+    public ResponseEntity<String> postLogin(@RequestBody UserCredentials userCredentials) {
+        String email = userCredentials.getEmail();
+        String password = userCredentials.getPassword();
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
+        Optional<User> authenticatedUser = userService.login(email, password);
+        if (authenticatedUser.isPresent()) {
+            return ResponseEntity.ok("Login successful!");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
+    }
+
+    @GetMapping("/id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         try {
-            Optional<User> optionalGame = userService.getUserById(id);
+            Optional<User> optionalUser = userService.getUserById(id);
 
-            if (optionalGame.isPresent()) {
-                User user = optionalGame.get();
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
 
                 System.out.println("Found User for ID: " + id);
                 System.out.println("User Details: " + user);

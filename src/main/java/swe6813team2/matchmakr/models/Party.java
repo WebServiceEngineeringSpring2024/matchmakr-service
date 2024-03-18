@@ -1,5 +1,5 @@
 package swe6813team2.matchmakr.models;
-
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -9,13 +9,16 @@ public class Party {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonView(swe6813team2.matchmakr.models.Game.GameViews.BasicView.class)
     private Long id;
 
     @Column(name = "name")
+    @JsonView(swe6813team2.matchmakr.models.Game.GameViews.BasicView.class)
     private String name;
-    
+
     @Column(name = "lobby")
-    private Long lobby;
+    @JsonView(swe6813team2.matchmakr.models.Game.GameViews.BasicView.class)
+    private Integer lobby;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false, updatable = false)
@@ -24,7 +27,6 @@ public class Party {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated")
     private Date updated;
-
 
     public Party() {
         this.created = new Date();

@@ -18,9 +18,24 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Optional<User> login(String email, String password) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (user.getPassword().equals(password)) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
+    }
+
+    public Optional<User> getUserByUsername(String userName){
+
+        return userRepository.findByuserName(userName);
     }
 
     public User saveUser(User user){

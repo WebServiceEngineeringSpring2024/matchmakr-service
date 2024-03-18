@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://our front end url goes here")
+@CrossOrigin(origins = "*")
 @RequestMapping("/games")
 public class GameController {
 
