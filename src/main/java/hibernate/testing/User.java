@@ -25,7 +25,7 @@ public class User {
 	private Timestamp created;
 	private Timestamp updated;
 	
-	//@Column(name = "user_id") // hibernate can pickup on this automatically, but if name differs from db table, must use tag
+	//@Column(name = "id") // hibernate can pickup on this automatically, but if name differs from db table, must use tag
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
