@@ -3,6 +3,7 @@ package swe6813team2.matchmakr.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import swe6813team2.matchmakr.models.User;
 import swe6813team2.matchmakr.models.UserCredentials;
@@ -32,7 +33,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-
+    @CrossOrigin("http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<User> insertUser(@RequestBody User newUser){
         try{
@@ -52,9 +53,10 @@ public class UserController {
             return ResponseEntity.ok(user);
         } catch (Exception e) {
         e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(new HttpHeaders()).body(null);
     }
     }
+    @CrossOrigin("http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<String> postLogin(@RequestBody UserCredentials userCredentials) {
         String email = userCredentials.getEmail();
@@ -63,7 +65,7 @@ public class UserController {
         System.out.println("Password: " + password);
         Optional<User> authenticatedUser = userService.login(email, password);
         if (authenticatedUser.isPresent()) {
-            return ResponseEntity.ok("Login successful!");
+            return ResponseEntity.ok("");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
