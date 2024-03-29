@@ -70,7 +70,27 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        try {
+            Optional<User> optionalUser = userService.getUserByEmail(email);
 
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+
+                System.out.println("Found User for email: " + email);
+                System.out.println("User Details: " + user);
+
+                return ResponseEntity.ok(user);
+            } else {
+                System.out.println("User not found for email: " + email);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
     @GetMapping("/id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         try {
