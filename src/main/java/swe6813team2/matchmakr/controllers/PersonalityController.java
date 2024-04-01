@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import swe6813team2.matchmakr.models.Personality;
+import swe6813team2.matchmakr.models.User;
 import swe6813team2.matchmakr.services.PersonalityService;
 
 import java.util.List;
@@ -31,6 +32,18 @@ public class PersonalityController {
             return ResponseEntity.ok(personalities);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+    
+    @CrossOrigin("http://localhost:4200")
+    @PostMapping("/savePersonality")
+    public ResponseEntity<Personality> insertPersonality(@RequestBody Personality newPersonality){
+        try{
+            Personality savedPersonality = personalityService.savePersonality(newPersonality);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedPersonality);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
