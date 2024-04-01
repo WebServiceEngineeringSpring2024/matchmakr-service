@@ -40,6 +40,7 @@ public class User {
 
     @Column(name = "personality")
     private Integer personality;
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false, updatable = false)
     private Date created;
@@ -58,6 +59,10 @@ public class User {
     }
     public String getPassword() {
         return password;
+    }
+    
+    public void setPersonality(Integer personalityId) {
+    	this.personality = personalityId;
     }
 
     private String getUserName(){
