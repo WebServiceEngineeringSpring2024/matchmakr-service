@@ -6,6 +6,12 @@ import java.util.Date;
 @Entity
 @Table(name = "personality")
 public class Personality {
+
+    public Personality() {
+        this.created = new Date();
+        this.updated = new Date();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
