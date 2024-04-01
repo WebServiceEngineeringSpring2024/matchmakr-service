@@ -2,31 +2,22 @@ package swe6813team2.matchmakr.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
+import org.springframework.http.ResponseEntity;
 import swe6813team2.matchmakr.models.Game;
 import swe6813team2.matchmakr.services.GameService;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.BDDMockito.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
 public class GameControllerTest {
-
-    private MockMvc mockMvc;
 
     @Mock
     private GameService gameService;
@@ -35,41 +26,98 @@ public class GameControllerTest {
     private GameController gameController;
 
     @BeforeEach
-    public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(gameController).build();
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void getAllGames_ShouldReturnGamesList() throws Exception {
-        Game game1 = new Game(); // Set properties for game1
-        Game game2 = new Game(); // Set properties for game2
-        List<Game> games = Arrays.asList(game1, game2);
+    public void testGetAllGames() {
+        // Arrange
+        List<Game> games = new ArrayList<>();
+        games.add(new Game());
+        games.add(new Game());
 
-        given(gameService.getAllGames()).willReturn(games);
+        when(gameService.getAllGames()).thenReturn(games);
 
-        mockMvc.perform(get("/games"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$[0]").isNotEmpty())
-                .andExpect(jsonPath("$[1]").isNotEmpty());
+        // Act
+        ResponseEntity<List<Game>> response = gameController.getAllGames();
 
-        verify(gameService, times(1)).getAllGames();
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(games, response.getBody());
     }
 
     @Test
-    public void getGameById_ShouldReturnGame() throws Exception {
+    public void testGetAllGames_NoContent() {
+        // Arrange
+        List<Game> games = new ArrayList<>();
+
+        when(gameService.getAllGames()).thenReturn(games);
+
+        // Act
+        ResponseEntity<List<Game>> response = gameController.getAllGames();
+
+        // Assert
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertEquals(games, response.getBody());
+    }
+
+    @Test
+    public void testGetAllGames_Exception() {
+        // Arrange
+        when(gameService.getAllGames()).thenThrow(new RuntimeException());
+
+        // Act
+        ResponseEntity<List<Game>> response = gameController.getAllGames();
+
+        // Assert
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(null, response.getBody());
+    }
+
+    @Test
+    public void testGetGameById() {
+        // Arrange
         Long gameId = 1L;
-        Game game = new Game(); // Set properties for game
-        given(gameService.getGameById(gameId)).willReturn(Optional.of(game));
+        Game game = new Game();
 
-        mockMvc.perform(get("/games/{id}", gameId))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(gameId));
+        when(gameService.getGameById(gameId)).thenReturn(Optional.of(game));
 
-        verify(gameService, times(1)).getGameById(gameId);
+        // Act
+        ResponseEntity<Game> response = gameController.getGameById(gameId);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(game, response.getBody());
     }
 
-    // Additional tests can be added here for other scenarios like not found, server error, etc.
+    @Test
+    public void testGetGameById_NotFound() {
+        // Arrange
+        Long gameId = 1L;
+
+        when(gameService.getGameById(gameId)).thenReturn(Optional.empty());
+
+        // Act
+        ResponseEntity<Game> response = gameController.getGameById(gameId);
+
+        // Assert
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(null, response.getBody());
+    }
+
+    @Test
+    public void testGetGameById_Exception() {
+        // Arrange
+        Long gameId = 1L;
+
+        when(gameService.getGameById(gameId)).thenThrow(new RuntimeException());
+
+        // Act
+        ResponseEntity<Game> response = gameController.getGameById(gameId);
+
+        // Assert
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals(null, response.getBody());
+    }
 }
