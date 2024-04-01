@@ -15,7 +15,7 @@ public class ProfileTest {
     }
 
     @Test
-    public void testUserID() {
+    public void testGetUserID() {
         long userID = 123456;
         assertEquals(userID, profile.getUserID());
     }
