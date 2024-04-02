@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import swe6813team2.matchmakr.models.User;
 import swe6813team2.matchmakr.models.UserCredentials;
+import swe6813team2.matchmakr.models.UserPersonality;
 import swe6813team2.matchmakr.services.UserService;
 
 import java.util.List;

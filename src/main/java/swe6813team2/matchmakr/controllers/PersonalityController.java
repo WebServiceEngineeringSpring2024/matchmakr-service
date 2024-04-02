@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import swe6813team2.matchmakr.models.Personality;
 import swe6813team2.matchmakr.models.User;
+
 import swe6813team2.matchmakr.models.UserPersonality;
 import swe6813team2.matchmakr.services.PersonalityService;
 import swe6813team2.matchmakr.services.UserService;
@@ -48,5 +49,4 @@ public class PersonalityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }
