@@ -6,10 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-import swe6813team2.matchmakr.models.Personality;
 import swe6813team2.matchmakr.models.User;
 import swe6813team2.matchmakr.models.UserCredentials;
-import swe6813team2.matchmakr.models.UserPersonality;
 import swe6813team2.matchmakr.services.UserService;
 
 import java.util.List;
@@ -41,20 +39,6 @@ public class UserController {
     public ResponseEntity<User> insertUser(@RequestBody User newUser){
         try{
             User savedUser = userService.saveUser(newUser);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-    
-    @PostMapping("/updatePersonality")
-    public ResponseEntity<User> updateUserPersonality(@RequestBody UserPersonality userPersonality){
-        try{
-        	Long userId = userPersonality.getUserId();
-        	Long personalityId = userPersonality.getPersonalityId();
-        	User user = userService.updateUserPersonalityById(userId, personalityId);
-            User savedUser = userService.saveUser(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
         }catch (Exception e){
             e.printStackTrace();
