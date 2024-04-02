@@ -39,7 +39,8 @@ public class User {
     private String country;
 
     @Column(name = "personality")
-    private Integer personality;
+    private Long personality;
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false, updatable = false)
     private Date created;
@@ -53,11 +54,15 @@ public class User {
         this.updated = new Date();
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
     public String getPassword() {
         return password;
+    }
+    
+    public void setPersonality(Long personalityId) {
+    	this.personality = personalityId;
     }
 
     private String getUserName(){

@@ -2,7 +2,10 @@ package swe6813team2.matchmakr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import swe6813team2.matchmakr.models.Personality;
 import swe6813team2.matchmakr.models.User;
+import swe6813team2.matchmakr.repositories.PersonalityRepository;
 import swe6813team2.matchmakr.repositories.UserRepository;
 
 import java.util.List;
@@ -13,6 +16,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private PersonalityRepository personalityRepository;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -28,6 +34,17 @@ public class UserService {
         }
         return Optional.empty();
     }
+    
+    public User updateUserPersonalityById(Long userId, Long personalityId) {
+    	Optional<User> optionalUser = userRepository.findById(userId);
+    	Optional<Personality> optionalPersonality = personalityRepository.findById(personalityId);
+    	if (optionalUser.isPresent() && optionalPersonality.isPresent()) {
+    		User user = optionalUser.get();
+    		user.setPersonality(personalityId);
+    		return user;
+    	}
+    	return null;
+    }
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
@@ -37,6 +54,7 @@ public class UserService {
 
         return userRepository.findByuserName(userName);
     }
+    
     public Optional<User> getUserByEmail(String email){
 
         return userRepository.findByEmail(email);

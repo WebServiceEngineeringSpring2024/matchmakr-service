@@ -5,8 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
+
+import swe6813team2.matchmakr.models.Personality;
 import swe6813team2.matchmakr.models.User;
 import swe6813team2.matchmakr.models.UserCredentials;
+import swe6813team2.matchmakr.models.UserPersonality;
 import swe6813team2.matchmakr.services.UserService;
 
 import java.util.List;
@@ -44,7 +47,21 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
+    
+    @PostMapping("/updatePersonality")
+    public ResponseEntity<User> updateUserPersonality(@RequestBody UserPersonality userPersonality){
+        try{
+        	Long userId = userPersonality.getUserId();
+        	Long personalityId = userPersonality.getPersonalityId();
+        	User user = userService.updateUserPersonalityById(userId, personalityId);
+            User savedUser = userService.saveUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
     @GetMapping("/name/{userName}")
     public ResponseEntity<User> getUserByName(@PathVariable String userName){
         try{
@@ -56,6 +73,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).headers(new HttpHeaders()).body(null);
     }
     }
+    
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<String> postLogin(@RequestBody UserCredentials userCredentials) {
@@ -70,6 +88,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
+    
     @GetMapping("/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         try {
