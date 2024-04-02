@@ -35,14 +35,14 @@ public class UserService {
         return Optional.empty();
     }
     
-    public Optional<User> updateUserPersonality(Long userId, Integer personalityId) {
+    public Optional<User> updateUserPersonality(Long userId, Long personalityId) {
     	Optional<User> user = userRepository.findById(userId);
     	Optional<Personality> myPersonality = personalityRepository.findById(personalityId);
     	if (user.isPresent() && myPersonality.isPresent()) {
     		user.orElseThrow().setPersonality(personalityId); //orElseThrow gets the instance of the optional class (aka the user)
-    		return user;
+    		return user; // no need--update to just be a message
     	}
-    	return Optional.empty();
+    	return Optional.empty(); // no need--update to just be a message
     }
 
     public Optional<User> getUserById(Long id) {

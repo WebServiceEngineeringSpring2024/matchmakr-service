@@ -16,7 +16,7 @@ public class Personality {
     private Integer aggression;
     
     @Column(name = "kindness")
-    private Integer kidness;
+    private Integer kindness;
     
     @Column(name = "competitiveness")
     private Integer competitiveness;
@@ -33,8 +33,20 @@ public class Personality {
         this.created = new Date();
         this.updated = new Date();
     }
+    
+    public Integer getAggression() {
+    	return aggression;
+    }
+    
+    public Integer getKindness() {
+    	return kindness;
+    }
+    
+    public Integer getCompetitiveness() {
+    	return competitiveness;
+    }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 

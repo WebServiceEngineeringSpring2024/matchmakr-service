@@ -23,6 +23,10 @@ public class PersonalityService {
         return personalityRepository.findById(id);
     }
     
+    public Optional<Personality> getPersonalityByScores(Integer aggression, Integer kindness, Integer competitiveness) {
+        return personalityRepository.findByAggressionAndKindnessAndCompetitiveness(aggression, kindness, competitiveness);
+    } // delete
+    
     public Personality savePersonality(Personality personality){
         return personalityRepository.save(personality);
     }

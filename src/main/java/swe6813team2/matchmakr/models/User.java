@@ -39,7 +39,7 @@ public class User {
     private String country;
 
     @Column(name = "personality")
-    private Integer personality;
+    private Long personality;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", nullable = false, updatable = false)
@@ -61,7 +61,7 @@ public class User {
         return password;
     }
     
-    public void setPersonality(Integer personalityId) {
+    public void setPersonality(Long personalityId) {
     	this.personality = personalityId;
     }
 

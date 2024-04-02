@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface PersonalityRepository extends JpaRepository<Personality, Long> {
 	Optional<Personality> findById(Integer id);
+	
+	Optional<Personality> findByAggressionAndKindnessAndCompetitiveness(Integer aggression, Integer kindness, Integer competitiveness);
 }
