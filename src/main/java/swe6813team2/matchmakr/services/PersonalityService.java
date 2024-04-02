@@ -3,7 +3,6 @@ package swe6813team2.matchmakr.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swe6813team2.matchmakr.models.Personality;
-import swe6813team2.matchmakr.models.User;
 import swe6813team2.matchmakr.repositories.PersonalityRepository;
 
 import java.util.List;
@@ -22,10 +21,6 @@ public class PersonalityService {
     public Optional<Personality> getPersonalityById(Long id) {
         return personalityRepository.findById(id);
     }
-    
-    public Optional<Personality> getPersonalityByScores(Integer aggression, Integer kindness, Integer competitiveness) {
-        return personalityRepository.findByAggressionAndKindnessAndCompetitiveness(aggression, kindness, competitiveness);
-    } // delete
     
     public Personality savePersonality(Personality personality){
         return personalityRepository.save(personality);

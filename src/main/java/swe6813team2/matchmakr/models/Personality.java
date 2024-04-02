@@ -33,6 +33,15 @@ public class Personality {
         this.created = new Date();
         this.updated = new Date();
     }
+
+    public Personality(Integer aggression, Integer kindness, Integer competitiveness) {
+    	this.aggression = aggression;
+    	this.kindness = kindness;
+    	this.competitiveness = competitiveness;
+        this.created = new Date();
+        this.updated = new Date();
+    }
+    
     
     public Integer getAggression() {
     	return aggression;

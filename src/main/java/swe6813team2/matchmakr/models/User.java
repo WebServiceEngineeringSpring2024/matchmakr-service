@@ -54,7 +54,7 @@ public class User {
         this.updated = new Date();
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
     public String getPassword() {
