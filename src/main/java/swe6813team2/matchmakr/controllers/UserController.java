@@ -76,7 +76,8 @@ public class UserController {
         	user.setOnline(1);
         	// save user with status of 1 for online
         	userService.saveUser(user);
-            return ResponseEntity.ok("");
+            // return back ID to be used in checking personality
+            return ResponseEntity.ok("" + user.getId());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
