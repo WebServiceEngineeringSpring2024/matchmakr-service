@@ -39,6 +39,8 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> insertUser(@RequestBody User newUser){
         try{
+        	// set online to 1
+        	newUser.setOnline(1);
             User savedUser = userService.saveUser(newUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
         }catch (Exception e){
@@ -68,6 +70,12 @@ public class UserController {
         System.out.println("Password: " + password);
         Optional<User> authenticatedUser = userService.login(email, password);
         if (authenticatedUser.isPresent()) {
+        	// get user by email, set online status
+        	// note: this should work since login must be a success here
+        	User user = userService.getUserByEmail(email).get();
+        	user.setOnline(1);
+        	// save user with status of 1 for online
+        	userService.saveUser(user);
             return ResponseEntity.ok("");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
@@ -115,5 +123,27 @@ public class UserController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
+    }
+    
+    @PostMapping("/signout/email")
+    public ResponseEntity<String> postSignOutByEmail(@RequestBody UserCredentials userCredentials) {
+        try {
+        	String email = userCredentials.getEmail();
+            System.out.println("Signing out email: " + email);
+            Optional<User> findUser = userService.getUserByEmail(email);
+            User user = findUser.get();
+            if (user.getOnline() != 0) {
+            	user.setOnline(0);
+                userService.saveUser(user);
+                return ResponseEntity.ok("");
+            }
+            else {
+            	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User is already signed out");
+            }
+            
+        } catch (Exception e) {
+        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error signing out");
+        }
+    	
     }
 }

@@ -61,6 +61,17 @@ public class User {
         return password;
     }
     
+    public int getOnline() {
+    	return online;
+    }
+    public void setOnline(int zeroOrOne) {
+    	online = zeroOrOne;
+    }
+    
+    public Long getPersonality() {
+    	return personality;
+    }
+    
     public void setPersonality(Long personalityId) {
     	this.personality = personalityId;
     }
