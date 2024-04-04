@@ -49,4 +49,35 @@ public class PersonalityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Personality> getPersonalityByUserId(@PathVariable Long id) {
+    	try {
+    		// get user with id,
+    		Optional<User> optionalUser = userService.getUserById(id);
+    		if (!optionalUser.isPresent()) {
+    			System.out.println("User not found for ID: " + id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    		}
+    		// get personalityID from user,
+    		Long personality = optionalUser.get().getPersonality();
+    		if (personality == null || personality == 0) {
+    			System.out.println("User found but has no personality: " + id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    		}
+    		// get personality with this personalityID,
+    		Optional<Personality> optionalP = personalityService.getPersonalityById(personality);
+    		if (!optionalP.isPresent()) {
+    			System.out.println("User found, but personality not found: " + personality);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    		}
+    		
+    		// return personality
+    		Personality result = optionalP.get();
+    		return ResponseEntity.ok(result);
+    		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    	}
+    }
 }
