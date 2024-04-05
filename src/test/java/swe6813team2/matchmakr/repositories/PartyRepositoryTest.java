@@ -4,18 +4,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import swe6813team2.matchmakr.models.Party;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-@ActiveProfiles("test")
-public class PartyRepositoryTest {
+class PartyRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -24,7 +21,7 @@ public class PartyRepositoryTest {
     private PartyRepository partyRepository;
 
     @Test
-    public void testFindPartyByName() {
+    void testFindPartyByName() {
         // Create a new party
         Party party = new Party();
         party.setName("Test Party");
@@ -33,7 +30,7 @@ public class PartyRepositoryTest {
         entityManager.persist(party);
 
         // Find the party by name
-        Optional<Party> foundParty = partyRepository.findPartyByname("Test Party");
+        Optional<Party> foundParty = partyRepository.findPartyByName("Test Party");
 
         // Verify that the party is found
         assertTrue(foundParty.isPresent());
@@ -41,7 +38,7 @@ public class PartyRepositoryTest {
     }
 
     @Test
-    public void testFindUsersByParty() {
+    void testFindUsersByParty() {
         // Create a new party
         Party party = new Party();
         party.setName("Test Party");
