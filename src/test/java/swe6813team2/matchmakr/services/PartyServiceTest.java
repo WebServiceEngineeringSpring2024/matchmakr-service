@@ -1,5 +1,6 @@
 package swe6813team2.matchmakr.services;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,12 +23,13 @@ class PartyServiceTest {
     @InjectMocks
     private PartyService partyService;
 
+    @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testGetAllParties() {
+    void testGetAllParties() {
         // Arrange
         List<Party> expectedParties = Arrays.asList(new Party(), new Party());
         when(partyRepository.findAll()).thenReturn(expectedParties);
@@ -41,7 +43,7 @@ class PartyServiceTest {
     }
 
     @Test
-    public void testGetPartyById() {
+    void testGetPartyById() {
         // Arrange
         Long partyId = 1L;
         Party expectedParty = new Party();
@@ -56,22 +58,22 @@ class PartyServiceTest {
     }
 
     @Test
-    public void testGetPartyByName() {
+    void testGetPartyByName() {
         // Arrange
         String partyName = "Party1";
         Party expectedParty = new Party();
-        when(partyRepository.findPartyByname(partyName)).thenReturn(Optional.of(expectedParty));
+        when(partyRepository.findPartyByName(partyName)).thenReturn(Optional.of(expectedParty));
 
         // Act
-        Optional<Party> actualParty = partyService.getPartyByname(partyName);
+        Optional<Party> actualParty = partyService.getPartyByName(partyName);
 
         // Assert
         assertEquals(Optional.of(expectedParty), actualParty);
-        verify(partyRepository, times(1)).findPartyByname(partyName);
+        verify(partyRepository, times(1)).findPartyByName(partyName);
     }
 
     @Test
-    public void testGetUsernameByParty() {
+    void testGetUsernameByParty() {
         // Arrange
         Long partyId = 1L;
         Party expectedParty = new Party();

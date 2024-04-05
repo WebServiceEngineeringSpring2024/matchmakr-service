@@ -2,6 +2,7 @@ package swe6813team2.matchmakr.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import swe6813team2.matchmakr.models.Game;
@@ -14,8 +15,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class GameServiceTest {
+class GameServiceTest {
 
+    @InjectMocks
     private GameService gameService;
 
     @Mock
@@ -24,15 +26,14 @@ public class GameServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        gameService = new GameService();
     }
 
     @Test
-    public void testGetAllGames() {
+    void testGetAllGames() {
         // Arrange
         List<Game> games = new ArrayList<>();
-        games.add(new Game(1L, "Game 1"));
-        games.add(new Game(2L, "Game 2"));
+        games.add(new Game());
+        games.add(new Game());
         when(gameRepository.findAll()).thenReturn(games);
 
         // Act
@@ -44,10 +45,11 @@ public class GameServiceTest {
     }
 
     @Test
-    public void testGetGameById() {
+    void testGetGameById() {
         // Arrange
         Long gameId = 1L;
-        Game game = new Game(gameId, "Game 1");
+        Game game = new Game();
+        game.setId(gameId);
         when(gameRepository.findById(gameId)).thenReturn(Optional.of(game));
 
         // Act

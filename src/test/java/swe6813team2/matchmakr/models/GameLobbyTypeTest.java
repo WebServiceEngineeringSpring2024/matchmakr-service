@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GameLobbyTypeTest {
+class GameLobbyTypeTest {
 
     private GameLobbyType.GameLobbyTypeId id;
     private GameLobbyType gameLobbyType1;
@@ -16,8 +16,6 @@ public class GameLobbyTypeTest {
     @BeforeEach
     public void init() {
         id = new GameLobbyType.GameLobbyTypeId();
-        id.setGame(1);
-        id.setType(2);
 
         gameLobbyType1 = new GameLobbyType();
         gameLobbyType1.setId(id);
@@ -27,15 +25,13 @@ public class GameLobbyTypeTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(gameLobbyType1, gameLobbyType2);
     }
 
     @Test
-    public void testNotEquals() {
+    void testNotEquals() {
         GameLobbyType.GameLobbyTypeId differentId = new GameLobbyType.GameLobbyTypeId();
-        differentId.setGame(3);
-        differentId.setType(4);
 
         GameLobbyType differentGameLobbyType = new GameLobbyType();
         differentGameLobbyType.setId(differentId);
@@ -44,7 +40,7 @@ public class GameLobbyTypeTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(Objects.hash(id), gameLobbyType1.hashCode());
     }
 }
