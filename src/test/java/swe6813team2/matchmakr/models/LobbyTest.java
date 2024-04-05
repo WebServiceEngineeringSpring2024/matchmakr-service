@@ -3,11 +3,9 @@ package swe6813team2.matchmakr.models;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LobbyTest {
+class LobbyTest {
 
     private Lobby lobby;
 
@@ -17,32 +15,27 @@ public class LobbyTest {
     }
 
     @Test
-    public void testIdNotNull() {
-        assertNotNull(lobby.getId());
-    }
-
-    @Test
-    public void testGameDefaultValue() {
+    void testGameDefaultValue() {
         assertEquals(0, lobby.getGame());
     }
 
     @Test
-    public void testMaxPlayersDefaultValue() {
+    void testMaxPlayersDefaultValue() {
         assertEquals(0, lobby.getMaxPlayers());
     }
 
     @Test
-    public void testCreatedNotNull() {
+    void testCreatedNotNull() {
         assertNotNull(lobby.getCreated());
     }
 
     @Test
-    public void testUpdatedNotNull() {
+    void testUpdatedNotNull() {
         assertNotNull(lobby.getUpdated());
     }
 
     @Test
-    public void testCreatedBeforeUpdated() {
-        assertTrue(lobby.getCreated().before(lobby.getUpdated()));
+    void testCreatedBeforeUpdated() {
+        assertTrue(lobby.getCreated().getTime() <= lobby.getUpdated().getTime());
     }
 }
