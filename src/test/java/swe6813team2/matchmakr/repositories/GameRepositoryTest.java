@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import swe6813team2.matchmakr.models.Game;
 
 import java.util.List;
@@ -13,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-@ActiveProfiles("test")
-public class GameRepositoryTest {
+class GameRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -23,7 +21,7 @@ public class GameRepositoryTest {
     private GameRepository gameRepository;
 
     @Test
-    public void testSaveGame() {
+    void testSaveGame() {
         // Create a new game
         Game game = new Game();
         game.setName("Test Game");
@@ -43,7 +41,7 @@ public class GameRepositoryTest {
     }
 
     @Test
-    public void testFindAllGames() {
+    void testFindAllGames() {
         // Create some test games
         Game game1 = new Game();
         game1.setName("Game 1");

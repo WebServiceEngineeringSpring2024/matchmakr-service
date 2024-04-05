@@ -4,16 +4,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import swe6813team2.matchmakr.models.User;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-@ActiveProfiles("test")
-public class UserRepositoryTest {
+class UserRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -22,7 +21,7 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    public void testFindByUserName() {
+    void testFindByUserName() {
         // Create a new user
         User user = new User();
         user.setUserName("testuser");
@@ -40,7 +39,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testFindByEmail() {
+    void testFindByEmail() {
         // Create a new user
         User user = new User();
         user.setUserName("testuser");
