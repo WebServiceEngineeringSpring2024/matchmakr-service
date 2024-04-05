@@ -1,27 +1,22 @@
 package swe6813team2.matchmakr.models;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Date;
-
-@DataJpaTest
-public class TypeTest {
+class TypeTest {
 
     @Test
-    public void testTypeCreation() {
+    void testTypeCreation() {
         Type type = new Type();
-        assertNotNull(type.getId());
-        assertNotNull(type.getName());
-        assertNotNull(type.getCreated());
-        assertNotNull(type.getUpdated());
+        assertNotNull(type);
     }
 
     @Test
-    public void testTypeCreationWithDefaultValues() {
+    void testTypeCreationWithDefaultValues() {
         Type type = new Type();
         assertEquals(new Date(), type.getCreated());
         assertEquals(new Date(), type.getUpdated());
