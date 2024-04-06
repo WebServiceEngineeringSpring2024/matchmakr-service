@@ -9,6 +9,8 @@ import swe6813team2.matchmakr.models.Game;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
@@ -64,5 +66,42 @@ class GameRepositoryTest {
         // Verify that the retrieved games match the saved games
         assertTrue(games.contains(game1));
         assertTrue(games.contains(game2));
+    }
+
+    @Test
+    void testFindById() {
+        // Create a test game
+        Game game = new Game();
+        game.setName("Test Game");
+        game.setDescription("This is a test game");
+
+        // Save the game to the repository
+        Game savedGame = entityManager.persist(game);
+
+        // Retrieve the game by ID
+        Game retrievedGame = gameRepository.findById(savedGame.getId()).orElse(null);
+
+        // Verify that the retrieved game is not null
+        assertNotNull(retrievedGame);
+
+        // Verify that the retrieved game matches the saved game
+        assertEquals(savedGame, retrievedGame);
+    }
+
+    @Test
+    void testDeleteGame() {
+        // Create a test game
+        Game game = new Game();
+        game.setName("Test Game");
+        game.setDescription("This is a test game");
+
+        // Save the game to the repository
+        Game savedGame = entityManager.persist(game);
+
+        // Delete the game from the repository
+        gameRepository.delete(savedGame);
+
+        // Verify that the game is no longer in the repository
+        assertFalse(gameRepository.existsById(savedGame.getId()));
     }
 }
