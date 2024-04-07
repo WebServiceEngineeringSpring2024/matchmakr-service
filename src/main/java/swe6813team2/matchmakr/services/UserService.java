@@ -34,16 +34,16 @@ public class UserService {
         }
         return Optional.empty();
     }
-    
+
     public User updateUserPersonalityById(Long userId, Long personalityId) {
-    	Optional<User> optionalUser = userRepository.findById(userId);
-    	Optional<Personality> optionalPersonality = personalityRepository.findById(personalityId);
-    	if (optionalUser.isPresent() && optionalPersonality.isPresent()) {
-    		User user = optionalUser.get();
-    		user.setPersonality(personalityId);
-    		return user;
-    	}
-    	return null;
+        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<Personality> optionalPersonality = personalityRepository.findById(personalityId);
+        if (optionalUser.isPresent() && optionalPersonality.isPresent()) {
+            User user = optionalUser.get();
+            user.setPersonality(personalityId);
+            return user;
+        }
+        return null;
     }
 
     public Optional<User> getUserById(Long id) {
@@ -52,7 +52,7 @@ public class UserService {
 
     public Optional<User> getUserByUsername(String userName){
 
-        return userRepository.findByuserName(userName);
+        return userRepository.findByUserName(userName);
     }
     
     public Optional<User> getUserByEmail(String email){

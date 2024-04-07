@@ -18,13 +18,14 @@ public class PartyService {
         return partyRepository.findAll();
     }
 
-    public Optional<Party> getGameById(Long id) {
+    public Optional<Party> getPartyById(Long id) {
         return partyRepository.findById(id);
     }
 
-    public Optional<Party> getPartyByname(String name) {
-        return partyRepository.findPartyByname(name);
+    public Optional<Party> getPartyByName(String name) {
+        return partyRepository.findPartyByName(name);
     }
+
     public Optional<Party> getUsernameByParty(Long id) {
         return partyRepository.findUsersByParty(id);
     }

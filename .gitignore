@@ -17,6 +17,8 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+.env
+
 ### Java template
 # Compiled class file
 *.class
@@ -268,3 +270,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+htmlReport/

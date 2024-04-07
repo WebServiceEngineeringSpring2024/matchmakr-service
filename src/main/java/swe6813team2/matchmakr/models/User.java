@@ -57,31 +57,101 @@ public class User {
     public Long getId() {
         return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getPassword() {
         return password;
     }
-    
-    public int getOnline() {
-    	return online;
-    }
-    public void setOnline(int zeroOrOne) {
-    	online = zeroOrOne;
-    }
-    
-    public Long getPersonality() {
-    	return personality;
-    }
-    
-    public void setPersonality(Long personalityId) {
-    	this.personality = personalityId;
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    private String getUserName(){
+    public String getUserName() {
         return userName;
     }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getOnline() {
+        return online;
+    }
+
+    public void setOnline(int online) {
+        this.online = online;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Long getPersonality() {
+        return personality;
+    }
+
+    public void setPersonality(Long personality) {
+        this.personality = personality;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
     public interface UserViews {
         interface BasicView {}
         interface DetailedView extends swe6813team2.matchmakr.models.User.UserViews.BasicView {}
     }
 }
-
