@@ -33,6 +33,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<User> insertUser(@RequestBody User newUser){
