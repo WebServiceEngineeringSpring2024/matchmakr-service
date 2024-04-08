@@ -49,7 +49,7 @@ public class LobbyController {
     		Integer kScore = personality.getKindness();
     		Integer cScore = personality.getCompetitiveness();
     		
-    		Integer range = 3; // how far to look above and below score for a match
+    		Integer range = 2; // how far to look above AND below score for a match
     		Integer aScoreMin = aScore - range;
     		Integer aScoreMax = aScore + range;
     		Integer kScoreMin = kScore - range;
