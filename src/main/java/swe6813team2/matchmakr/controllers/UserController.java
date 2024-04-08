@@ -1,14 +1,12 @@
 package swe6813team2.matchmakr.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
-
 import swe6813team2.matchmakr.models.User;
 import swe6813team2.matchmakr.models.UserCredentials;
-import swe6813team2.matchmakr.models.UserPersonality;
 import swe6813team2.matchmakr.services.UserService;
 
 import java.util.List;
@@ -40,8 +38,8 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> insertUser(@RequestBody User newUser){
         try{
-        	// set online to 1
-        	newUser.setOnline(1);
+            // set online to 1
+            newUser.setOnline(1);
             User savedUser = userService.saveUser(newUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
         }catch (Exception e){
@@ -54,6 +52,9 @@ public class UserController {
     public ResponseEntity<User> getUserByName(@PathVariable String userName){
         try{
             Optional<User> optionalUsername = userService.getUserByUsername(userName);
+            if (optionalUsername.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
             User user = optionalUsername.get();
             return ResponseEntity.ok(user);
         } catch (Exception e) {
@@ -71,12 +72,16 @@ public class UserController {
         System.out.println("Password: " + password);
         Optional<User> authenticatedUser = userService.login(email, password);
         if (authenticatedUser.isPresent()) {
-        	// get user by email, set online status
-        	// note: this should work since login must be a success here
-        	User user = userService.getUserByEmail(email).get();
-        	user.setOnline(1);
-        	// save user with status of 1 for online
-        	userService.saveUser(user);
+            // get user by email, set online status
+            // note: this should work since login must be a success here
+            Optional<User> findUser = userService.getUserByEmail(email);
+            if (findUser.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+            User user = findUser.get();
+            user.setOnline(1);
+            // save user with status of 1 for online
+            userService.saveUser(user);
             // return back ID to be used in checking personality
             return ResponseEntity.ok("" + user.getId());
         } else {
@@ -130,22 +135,25 @@ public class UserController {
     @PostMapping("/signout/email")
     public ResponseEntity<String> postSignOutByEmail(@RequestBody UserCredentials userCredentials) {
         try {
-        	String email = userCredentials.getEmail();
+            String email = userCredentials.getEmail();
             System.out.println("Signing out email: " + email);
             Optional<User> findUser = userService.getUserByEmail(email);
+            if (findUser.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
             User user = findUser.get();
             if (user.getOnline() != 0) {
-            	user.setOnline(0);
+                user.setOnline(0);
                 userService.saveUser(user);
                 return ResponseEntity.ok("");
             }
             else {
-            	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User is already signed out");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User is already signed out");
             }
-            
+
         } catch (Exception e) {
-        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error signing out");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error signing out");
         }
-    	
+
     }
 }

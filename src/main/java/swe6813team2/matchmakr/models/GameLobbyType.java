@@ -34,4 +34,12 @@ public class GameLobbyType {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public GameLobbyTypeId getId() {
+        return id;
+    }
+
+    public void setId(GameLobbyTypeId id) {
+        this.id = id;
+    }
 }
