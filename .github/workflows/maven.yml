@@ -26,17 +26,36 @@ jobs:
           distribution: corretto
           cache: maven
 
+      - name: Install JaCoCo
+        run: mvn org.jacoco:jacoco-maven-plugin:prepare-agent
+
       - name: Compile
         run: mvn -B compile
 
-      - name: Unit Tests
-        run: mvn -B test
+      - name: Unit Tests with Coverage
+        run: mvn -B test jacoco:report
+
+      - name: Check Unit Coverage
+        run: |
+          COVERAGE=$(cat target/site/jacoco/index.html | grep -oP '(?<=<span class="percentage">)[0-9]+(?=%</span>)')
+          if [ "$COVERAGE" -lt 80 ]; then
+            echo "Unit Coverage is below 80%. Failing the workflow. Make sure to write tests to cover the code."
+            exit 1
+          fi
 
       - name: Package
         run: mvn -B package
 
       - name: Integration Tests
-        run: mvn -B verify
+        run: mvn -B verify jacoco:report
+
+      - name: Check Integration Coverage
+        run: |
+          COVERAGE=$(cat target/site/jacoco/index.html | grep -oP '(?<=<span class="percentage">)[0-9]+(?=%</span>)')
+          if [ "$COVERAGE" -lt 80 ]; then
+            echo "Integration Coverage is below 80%. Failing the workflow. Make sure to write tests to cover the code."
+            exit 1
+          fi
 
       - name: Install
         run: mvn -B install
