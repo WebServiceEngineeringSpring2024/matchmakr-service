@@ -70,4 +70,11 @@ public class UserFriend {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
+    
+    // Interface here is used for projection in the get friends/get friend requests queries.
+    public interface UserFriendView {
+    	Long getId();
+    	String getUsername();
+    	int getOnline();
+    }
 }
