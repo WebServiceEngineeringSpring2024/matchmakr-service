@@ -22,41 +22,42 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 @RequestMapping("/lobbies")
 
-public class LobbyController {
+public class  LobbyController {
 
 
     @Autowired
     private LobbyService lobbyService;
-    
+
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private PersonalityService personalityService;
 
-    @GetMapping("/matchUser/{userId}")
-    public ResponseEntity<List<User>> getMatchingUsers(@PathVariable Long userId) {
-    	try {
-    		// Get user
-    		Optional<User> optionalUser = userService.getUserById(userId);
-    		User user = optionalUser.get();
-    		// Get personality
-    		Long userPersonalityId = user.getPersonality();
-    		Optional<Personality> optionalPersonality = personalityService.getPersonalityById(userPersonalityId);
-    		Personality personality = optionalPersonality.get();
-    		// Get personality scores
-    		Integer aScore = personality.getAggression();
-    		Integer kScore = personality.getKindness();
-    		Integer cScore = personality.getCompetitiveness();
-    		
-    		Integer range = 2; // how far to look above AND below score for a match
-    		Integer aScoreMin = aScore - range;
-    		Integer aScoreMax = aScore + range;
-    		Integer kScoreMin = kScore - range;
-    		Integer kScoreMax = kScore + range;
-    		Integer cScoreMin = cScore - range;
-    		Integer cScoreMax = cScore + range;
-    		
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/matchUser/{userEmail}")
+    public ResponseEntity<List<User>> getMatchingUsers(@PathVariable String userEmail) {
+        try {
+            // Get user
+            Optional<User> optionalUser = userService.getUserByEmail(userEmail);
+            User user = optionalUser.get();
+            // Get personality
+            Long userPersonalityId = user.getPersonality();
+            Optional<Personality> optionalPersonality = personalityService.getPersonalityById(userPersonalityId);
+            Personality personality = optionalPersonality.get();
+            // Get personality scores
+            Integer aScore = personality.getAggression();
+            Integer kScore = personality.getKindness();
+            Integer cScore = personality.getCompetitiveness();
+
+            Integer range = 2; // how far to look above AND below score for a match
+            Integer aScoreMin = aScore - range;
+            Integer aScoreMax = aScore + range;
+            Integer kScoreMin = kScore - range;
+            Integer kScoreMax = kScore + range;
+            Integer cScoreMin = cScore - range;
+            Integer cScoreMax = cScore + range;
+
             List<User> users = lobbyService.getMatchingUsers(aScoreMin, aScoreMax, kScoreMin, kScoreMax, cScoreMin, cScoreMax);
             if (users.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(users);
