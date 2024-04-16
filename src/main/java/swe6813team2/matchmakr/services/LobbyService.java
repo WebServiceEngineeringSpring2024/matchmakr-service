@@ -1,7 +1,6 @@
 package swe6813team2.matchmakr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import swe6813team2.matchmakr.models.Lobby;
@@ -33,7 +32,7 @@ public class LobbyService {
 		return lobbyRepository.save(lobby);
 	}
 	
-	public List<User> getMatchingUsers(Integer aScoreMin, Integer aScoreMax, Integer kScoreMin, Integer kScoreMax, Integer cScoreMin, Integer cScoreMax) {
-		return userRepository.findMatchingUsers(aScoreMin, aScoreMax, kScoreMin, kScoreMax, cScoreMin, cScoreMax);
+	public List<User> getMatchingUsers(String userEmail) {
+		return userRepository.findMatchingUsers(userEmail);
 	}
 }
